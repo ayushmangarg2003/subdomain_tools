@@ -9,6 +9,10 @@ const navigation = [
   { name: 'Password Generator', href: '/password-generator' },
   { name: 'Color Palette', href: '/color-palette' },
   { name: 'Markdown Editor', href: '/markdown-editor' },
+  { name: 'Regex Tester', href: '/regex-tester' },
+  { name: 'Image to Data URI', href: '/image-to-data-uri' },
+  { name: 'CSV to JSON', href: '/csv-to-json' },
+  { name: 'CSS Gradient', href: '/css-gradient' },
 ];
 
 export default function Navbar() {
