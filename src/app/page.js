@@ -1,8 +1,108 @@
+import Link from 'next/link';
+import BackgroundPattern from '../components/BackgroundPattern';
+
+const tools = [
+  {
+    id: 'password-generator',
+    title: 'Password Generator',
+    description: 'Create strong, secure passwords with custom requirements',
+    icon: '🔒',
+    available: true,
+  },
+  {
+    id: 'color-palette',
+    title: 'Color Palette Generator',
+    description: 'Generate beautiful color schemes for your projects',
+    icon: '🎨',
+    available: true,
+  },
+  {
+    id: 'url-shortener',
+    title: 'URL Shortener',
+    description: 'Shorten long URLs into compact, shareable links',
+    icon: '🔗',
+    available: false,
+  },
+  {
+    id: 'markdown-editor',
+    title: 'Markdown Editor',
+    description: 'Edit and preview markdown with a clean interface',
+    icon: '📝',
+    available: true,
+  },
+  {
+    id: 'youtube-revenue',
+    title: 'YouTube Revenue Predictor',
+    description: 'Estimate potential earnings from your YouTube channel',
+    icon: '💰',
+    available: false,
+  },
+  {
+    id: 'image-optimizer',
+    title: 'Image Optimizer',
+    description: 'Compress and optimize your images for the web',
+    icon: '🖼️',
+    available: false,
+  },
+];
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <h1 className="text-4xl font-bold mb-6">Welcome to URL Shortener</h1>
-      <p className="text-xl">A Next.js application for shortening URLs</p>
-    </main>
-  )
+    <div className="relative py-12">
+      <BackgroundPattern />
+      
+      <div className="relative">
+        <div className="text-center mb-16">
+          <div className="flex flex-col items-center justify-center">
+            <div className="bg-gradient-to-r p-2 from-indigo-500 via-purple-500 to-pink-500 rounded-full mb-6">
+              <div className="bg-gray-50 rounded-full p-4">
+                <div className="text-6xl">🛠️</div>
+              </div>
+            </div>
+            <h1 className="text-5xl font-extrabold mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              ToolHub
+            </h1>
+          </div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Your collection of useful web utilities to boost productivity
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {tools.map((tool) => (
+            <div
+              key={tool.id}
+              className="relative group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100 hover:border-gray-200"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="p-8 relative">
+                <div className="bg-gradient-to-r p-2 from-indigo-500 via-purple-500 to-pink-500 rounded-full inline-block mb-4">
+                  <div className="bg-white rounded-full p-3">
+                    <div className="text-3xl">{tool.icon}</div>
+                  </div>
+                </div>
+                <h2 className="text-xl font-bold mb-2">{tool.title}</h2>
+                <p className="text-gray-600 mb-6 h-14">{tool.description}</p>
+                
+                <div className="absolute bottom-8 left-8 right-8">
+                  {tool.available ? (
+                    <Link 
+                      href={`/${tool.id}`}
+                      className="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium rounded-md text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300"
+                    >
+                      Use Tool
+                    </Link>
+                  ) : (
+                    <span className="inline-flex w-full items-center justify-center px-4 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-md border border-gray-200">
+                      Coming Soon
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 } 
