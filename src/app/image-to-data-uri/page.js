@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import BackgroundPattern from '../../components/BackgroundPattern';
+import ModalLoader from '../../components/ModalLoader';
 
 export default function ImageToDataUri() {
   const [dataUri, setDataUri] = useState('');
@@ -12,6 +13,7 @@ export default function ImageToDataUri() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
+  const [showLoader, setShowLoader] = useState(false);
   const fileInputRef = useRef(null);
   
   const handleFileChange = (e) => {
@@ -57,6 +59,10 @@ export default function ImageToDataUri() {
     
     reader.readAsDataURL(file);
   };
+
+  const handleConvertImage = () => {
+    setShowLoader(true);
+  };
   
   const copyToClipboard = () => {
     if (!dataUri) return;
@@ -96,6 +102,15 @@ export default function ImageToDataUri() {
     <div className="relative py-12">
       <BackgroundPattern />
       
+      {showLoader && (
+        <ModalLoader
+          onComplete={() => {
+            handleFileChange({ target: { files: fileInputRef.current.files } });
+            setShowLoader(false);
+          }}
+        />
+      )}
+      
       <div className="max-w-4xl mx-auto relative">
         <div className="text-center mb-8">
           <div className="inline-flex mb-6 p-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-full">
@@ -128,7 +143,7 @@ export default function ImageToDataUri() {
                   id="file-upload"
                   type="file"
                   accept="image/*"
-                  onChange={handleFileChange}
+                  onChange={handleConvertImage}
                   ref={fileInputRef}
                   className="hidden"
                 />

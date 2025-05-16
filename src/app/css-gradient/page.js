@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import BackgroundPattern from '../../components/BackgroundPattern';
+import ModalLoader from '../../components/ModalLoader';
 
 // Predefined gradient templates
 const gradientTemplates = [
@@ -24,6 +25,7 @@ export default function CssGradient() {
   ]);
   const [cssCode, setCssCode] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   
   useEffect(() => {
     generateCssCode();
@@ -51,6 +53,10 @@ export default function CssGradient() {
     const code = `background: ${gradientString};\nbackground: -webkit-${gradientString};\nbackground: -moz-${gradientString};`;
     
     setCssCode(code);
+  };
+  
+  const handleGenerateGradient = () => {
+    setShowLoader(true);
   };
   
   const addColor = () => {
@@ -159,6 +165,15 @@ export default function CssGradient() {
   return (
     <div className="relative py-12">
       <BackgroundPattern />
+      
+      {showLoader && (
+        <ModalLoader
+          onComplete={() => {
+            generateCssCode();
+            setShowLoader(false);
+          }}
+        />
+      )}
       
       <div className="max-w-5xl mx-auto relative">
         <div className="text-center mb-8">
@@ -355,6 +370,16 @@ export default function CssGradient() {
                       </div>
                     ))}
                   </div>
+                </div>
+                
+                {/* Add Generate Button */}
+                <div className="flex justify-center">
+                  <button
+                    onClick={handleGenerateGradient}
+                    className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300"
+                  >
+                    Generate Gradient
+                  </button>
                 </div>
               </div>
             </div>

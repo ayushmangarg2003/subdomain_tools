@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import BackgroundPattern from '../../components/BackgroundPattern';
+import ModalLoader from '../../components/ModalLoader';
 
 // Example regex patterns with descriptions
 const examplePatterns = [
@@ -19,6 +20,7 @@ export default function RegexTester() {
   const [matches, setMatches] = useState([]);
   const [error, setError] = useState("");
   const [selectedExample, setSelectedExample] = useState(0);
+  const [showLoader, setShowLoader] = useState(false);
   
   // Process regex whenever inputs change
   useEffect(() => {
@@ -70,6 +72,10 @@ export default function RegexTester() {
     }
   };
   
+  const handleTestRegex = () => {
+    setShowLoader(true);
+  };
+  
   const loadExample = (index) => {
     setSelectedExample(index);
     setRegex(examplePatterns[index].pattern);
@@ -119,6 +125,15 @@ export default function RegexTester() {
   return (
     <div className="relative py-12">
       <BackgroundPattern />
+      
+      {showLoader && (
+        <ModalLoader
+          onComplete={() => {
+            testRegex();
+            setShowLoader(false);
+          }}
+        />
+      )}
       
       <div className="max-w-5xl mx-auto relative">
         <div className="text-center mb-8">
@@ -199,6 +214,15 @@ export default function RegexTester() {
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-mono"
                 placeholder="Enter text to test against the regex pattern"
               />
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                onClick={handleTestRegex}
+                className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white px-6 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300"
+              >
+                Test Regex
+              </button>
             </div>
           </div>
         </div>

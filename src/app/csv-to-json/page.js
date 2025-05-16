@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import BackgroundPattern from '../../components/BackgroundPattern';
+import ModalLoader from '../../components/ModalLoader';
 
 const sampleCsv = `name,email,age,city
 John Doe,john@example.com,32,New York
@@ -33,6 +34,7 @@ export default function CsvToJson() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
   const fileInputRef = useRef(null);
   
   const parseCSV = (csv, hasHeader, delimiter) => {
@@ -162,6 +164,10 @@ export default function CsvToJson() {
       setLoading(false);
     }
   };
+
+  const handleConvert = () => {
+    setShowLoader(true);
+  };
   
   const loadSample = () => {
     if (inputFormat === 'csv') {
@@ -213,6 +219,15 @@ export default function CsvToJson() {
   return (
     <div className="relative py-12">
       <BackgroundPattern />
+      
+      {showLoader && (
+        <ModalLoader
+          onComplete={() => {
+            convert();
+            setShowLoader(false);
+          }}
+        />
+      )}
       
       <div className="max-w-6xl mx-auto relative">
         <div className="text-center mb-8">
@@ -365,7 +380,7 @@ export default function CsvToJson() {
             <div className="p-6">
               <div className="flex justify-center mb-4">
                 <button
-                  onClick={convert}
+                  onClick={handleConvert}
                   disabled={loading || !input}
                   className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
