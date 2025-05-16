@@ -86,19 +86,20 @@ export default function Home() {
           {tools.map((tool) => (
             <div
               key={tool.id}
-              className="relative group bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100 hover:border-gray-200"
+              className="relative flex flex-col bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl border border-gray-100 hover:border-gray-200 h-full min-h-[340px]"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="p-8 relative">
-                <div className="bg-gradient-to-r p-2 from-indigo-500 via-purple-500 to-pink-500 rounded-full inline-block mb-4">
-                  <div className="bg-white rounded-full p-3">
-                    <div className="text-3xl">{tool.icon}</div>
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              <div className="flex flex-col flex-1 p-8 relative z-10">
+                <div className="flex justify-center mb-4">
+                  <div className="bg-gradient-to-r p-2 from-indigo-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <div className="bg-white rounded-full p-3 flex items-center justify-center">
+                      <div className="text-3xl flex items-center justify-center">{tool.icon}</div>
+                    </div>
                   </div>
                 </div>
-                <h2 className="text-xl font-bold mb-2">{tool.title}</h2>
-                <p className="text-gray-600 mb-6 h-14">{tool.description}</p>
-                
-                <div className="absolute bottom-8 left-8 right-8">
+                <h2 className="text-xl font-bold mb-2 text-center">{tool.title}</h2>
+                <p className="text-gray-600 mb-6 text-center line-clamp-2 min-h-[48px]">{tool.description}</p>
+                <div className="mt-auto">
                   {tool.available ? (
                     <Link 
                       href={`/${tool.id}`}

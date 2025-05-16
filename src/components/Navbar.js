@@ -29,7 +29,7 @@ export default function Navbar() {
                 ToolHub
               </Link>
             </div>
-            <div className="hidden sm:ml-8 sm:flex sm:space-x-4">
+            <div className="hidden lg:ml-8 lg:flex lg:space-x-4">
               {navigation.map((item) => {
                 const isActive = pathname === item.href || 
                   (item.href !== '/' && pathname?.startsWith(item.href));
@@ -51,7 +51,7 @@ export default function Navbar() {
             </div>
           </div>
           
-          <div className="-mr-2 flex items-center sm:hidden">
+          <div className="-mr-2 flex items-center lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -73,7 +73,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="sm:hidden">
+        <div className="lg:hidden">
           <div className="pt-2 pb-3 space-y-1 px-4">
             {navigation.map((item) => {
               const isActive = pathname === item.href || 
